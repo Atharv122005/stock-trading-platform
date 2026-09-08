@@ -2,7 +2,6 @@ import React from 'react'
 
 function Hero() {
   return (
-    <div>
       <div className="container">
         <div className="row">
           <img src="media/images/homeHero.png" alt="hero" />
@@ -13,7 +12,6 @@ function Hero() {
           <button className="p-2 btn btn-primary fs-5 mb-5" style={{ width: '20%', margin: '0px autofo' }}>Sign up for free</button>
         </div>
       </div>
-    </div >
   )
 }
 
