@@ -14,6 +14,7 @@ app.use(express.json());
 
 const { HoldingsModel } = require("./model/HoldingsModel");
 const { PositionsModel } = require("./model/PositionsModel");
+const {OrdersModel} = require("./model/PositionsModel");
 
 // app.get("/addPositions", async (req, res) => {
 //   positions.forEach((item) => {
@@ -43,6 +44,15 @@ app.get('/allPositions',async(req,res)=>{
     res.json(allPositions);
 })
 
+app.post("/newOrder", async (req, res) => {
+  let newOrder = new OrdersModel({
+    name: req.body.name,
+    qty: req.body.qty,
+    price: req.body.price,
+    mode: req.body.mode,
+  });
+  newOrder.save();
+});
 
 app.listen(3002,()=>{
     console.log("app is started");
