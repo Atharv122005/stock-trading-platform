@@ -14,7 +14,7 @@ app.use(express.json());
 
 const { HoldingsModel } = require("./model/HoldingsModel");
 const { PositionsModel } = require("./model/PositionsModel");
-const {OrdersModel} = require("./model/PositionsModel");
+const { OrdersModel } = require("./model/OrdersModel");
 
 // app.get("/addPositions", async (req, res) => {
 //   positions.forEach((item) => {
