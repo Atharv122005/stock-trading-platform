@@ -6,7 +6,6 @@ const uri = process.env.MONGO_URL;
 const app = express();
 const cors = require("cors");
 app.use(cors());
-
 app.use(express.json());
 
 // const { watchlist, holdings, positions } = require("../dashboard/src/data/data.js");
@@ -44,18 +43,56 @@ app.get('/allPositions',async(req,res)=>{
     res.json(allPositions);
 })
 
-app.post("/newOrder", async (req, res) => {
-  let newOrder = new OrdersModel({
-    name: req.body.name,
-    qty: req.body.qty,
-    price: req.body.price,
-    mode: req.body.mode,
-  });
-  newOrder.save();
+
+app.get("/allOrders", async (req, res) => {
+  try {
+    const allOrders = await OrdersModel.find({});
+    res.status(200).json(allOrders);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 });
 
-app.listen(3002,()=>{
-    console.log("app is started");
-    mongoose.connect(uri);
-    console.log("Db is started");
+app.post("/newOrder", async (req, res) => {
+  try {
+    const { name, qty, price, mode } = req.body;
+
+    const newOrder = new OrdersModel({ name, qty, price, mode });
+    await newOrder.save();
+
+    if (mode === "BUY") {
+      const holding = await HoldingsModel.findOne({ name });
+
+      if (holding) {
+        const totalQty = holding.qty + qty;
+        holding.avg =
+          (holding.avg * holding.qty + price * qty) / totalQty;
+        holding.qty = totalQty;
+        holding.price = price;
+        await holding.save();
+      } else {
+        await HoldingsModel.create({
+          name,
+          qty,
+          avg: price,
+          price,
+          net: "0.00%",
+          day: "0.00%",
+        });
+      }
+    }
+
+    res.status(201).json({ message: "Order saved successfully", order: newOrder });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 });
+
+
+mongoose
+  .connect(uri)
+  .then(() => {
+    console.log("Db is started");
+    app.listen(PORT, () => console.log(`app is started on ${PORT}`));
+  })
+  .catch((err) => console.error("DB connection failed:", err));
