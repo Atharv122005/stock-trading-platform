@@ -1,0 +1,42 @@
+.table {
+  background: #fff;
+  border: 1px solid #e8e8e8;
+  border-radius: 8px;
+  padding: 20px 24px;
+  min-width: 360px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.table .data {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+}
+
+.table .imp {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.table .imp.colored {
+  color: #4caf50;
+}
+
+.funds {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-bottom: 30px;
+}
+
+.funds .btn-green {
+  background: #4caf50;
+  color: #fff;
+}
+
+.funds .btn-blue {
+  background: #387ed1;
+  color: #fff;
+}
