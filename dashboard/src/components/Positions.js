@@ -13,7 +13,7 @@ const Positions = () => {
       setAllPostions(res.data);
     })
 
-  })
+  }, []);
 
   return (
     <>
