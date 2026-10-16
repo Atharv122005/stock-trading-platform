@@ -42,7 +42,7 @@ const Menu = () => {
             </Link>
           </li>
           <li>
-            <Link style={{ textDecoration: "none" }} to="funds" onClick={() => handleMenuClick(4)}>
+            <Link style={{ textDecoration: "none" }} to="/funds" onClick={() => handleMenuClick(4)}>
               <p className={selectedMenu === 4 ? activeMenuClass : menuClass}>Funds</p>
             </Link>
           </li>
