@@ -1,7 +1,24 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import "./Funds.css";
 
 const Funds = () => {
+
+  const [funds, setFunds] = useState({ available: 0, used: 0 });
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3002/funds")
+      .then((res) => setFunds(res.data))
+      .catch((err) => console.error("Failed to fetch funds:", err));
+  }, []);
+
+    const fmt = (n) =>
+    Number(n).toLocaleString("en-IN", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
   return (
     <>
       <div className="funds">
@@ -19,15 +36,15 @@ const Funds = () => {
           <div className="table">
             <div className="data">
               <p>Available margin</p>
-              <p className="imp colored">4,043.10</p>
+              <p className="imp colored">{fmt(funds.available)}</p>
             </div>
             <div className="data">
               <p>Used margin</p>
-              <p className="imp">3,757.30</p>
+              <p className="imp">{fmt(funds.used)}</p>
             </div>
             <div className="data">
               <p>Available cash</p>
-              <p className="imp">4,043.10</p>
+              <p className="imp">{fmt(funds.available)}</p>
             </div>
             <hr />
             <div className="data">
