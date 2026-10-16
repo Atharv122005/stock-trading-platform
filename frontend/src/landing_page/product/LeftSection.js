@@ -11,9 +11,9 @@ function LeftSection({ imageURL, productName, productDesription, tryDemo, learnM
           <h1>{productName}</h1>
           <p>{productDesription}</p>
           <div >
-            <a href={tryDemo} style={{ textDecoration: "none" }}>Try Demo{" "}<i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+            <a href={tryDemo} style={{ textDecoration: "none" }}>Try Demo{" "}<i className="fa fa-long-arrow-right" aria-hidden="true"></i>
             </a>
-            <a href={learnMore} style={{ marginLeft: "50px" , textDecoration: "none" }}>Learn More{" "}<i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+            <a href={learnMore} style={{ marginLeft: "50px" , textDecoration: "none" }}>Learn More{" "}<i className="fa fa-long-arrow-right" aria-hidden="true"></i>
             </a>
           </div>
           <div className="mt-3">
