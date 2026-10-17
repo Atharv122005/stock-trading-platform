@@ -155,6 +155,24 @@ app.post("/addFunds", async (req, res) => {
   }
 });
 
+app.post("/withdrawFunds", async (req, res) => {
+  try {
+    const amount = Number(req.body.amount);
+    if (!(amount > 0)) {
+      return res.status(400).json({ message: "Invalid amount" });
+    }
+    const funds = await FundsModel.findOne({});
+    if (!funds || funds.available < amount) {
+      return res.status(400).json({ message: "Insufficient funds" });
+    }
+    funds.available -= amount;
+    await funds.save();
+    res.json(funds);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 mongoose
   .connect(uri)
   .then(() => {
