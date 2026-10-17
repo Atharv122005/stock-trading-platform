@@ -6,6 +6,7 @@ import "./Funds.css";
 const Funds = () => {
 
   const [funds, setFunds] = useState({ available: 0, used: 0 });
+  const [amount, setAmount] = useState("");
 
   useEffect(() => {
     axios
@@ -14,17 +15,39 @@ const Funds = () => {
       .catch((err) => console.error("Failed to fetch funds:", err));
   }, []);
 
-    const fmt = (n) =>
+  const fmt = (n) =>
     Number(n).toLocaleString("en-IN", {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     });
+
+  const handleFunds = async (type) => {
+    try {
+      const res = await axios.post(`http://localhost:3002/${type}`, {
+        amount: Number(amount),
+      });
+      setFunds(res.data);
+      setAmount("");
+    } catch (err) {
+      alert(err.response?.data?.message || "Something went wrong");
+    }
+  };
   return (
     <>
       <div className="funds">
         <p>Instant, zero-cost fund transfers with UPI </p>
-        <Link className="btn btn-green">Add funds</Link>
-        <Link className="btn btn-blue">Withdraw</Link>
+        <input
+          type="number"
+          placeholder="Amount"
+          value={amount}
+          onChange={(e) => setAmount(e.target.value)}
+        />
+        <button className="btn btn-green" onClick={() => handleFunds("addFunds")}>
+          Add funds
+        </button>
+        <button className="btn btn-blue" onClick={() => handleFunds("withdrawFunds")}>
+          Withdraw
+        </button>
       </div>
 
       <div className="row">
