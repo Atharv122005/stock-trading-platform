@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import axios from "axios";
 import GeneralContext from "./GeneralContext";
-import { Tooltip, Grow } from "@mui/material";
+import { Tooltip } from "@mui/material";
 import {
   BarChartOutlined,
   KeyboardArrowDown,
@@ -110,18 +110,18 @@ const WatchListActions = ({ uid, price }) => {
   return (
     <span className="actions">
       <span>
-        <Tooltip title="Buy (B)" placement="top" arrow TransitionComponent={Grow} onClick={handleBuyClick}>
-          <button className="buy">Buy</button>
+        <Tooltip title="Buy (B)" placement="top" arrow >
+          <button className="buy" onClick={handleBuyClick}>Buy</button>
         </Tooltip>
-        <Tooltip title="Sell (S)" placement="top" arrow TransitionComponent={Grow}>
+        <Tooltip title="Sell (S)" placement="top" arrow >
           <button className="sell" onClick={handleSellClick}>Sell</button>
         </Tooltip>
-        <Tooltip title="Analytics (A)" placement="top" arrow TransitionComponent={Grow}>
+        <Tooltip title="Analytics (A)" placement="top" arrow >
           <button className="action">
             <BarChartOutlined className="icon" />
           </button>
         </Tooltip>
-        <Tooltip title="More" placement="top" arrow TransitionComponent={Grow}>
+        <Tooltip title="More" placement="top" arrow >
           <button className="action">
             <MoreHoriz className="icon" />
           </button>
